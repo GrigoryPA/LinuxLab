@@ -1,0 +1,34 @@
+#include "fun.h"
+#include <unistd.h>
+#include <fstream>
+
+struct sembuf buf;
+
+int main()
+{
+	getSemafor();
+	
+	for(int i=0;i<WRITE_COUNT;++i)
+	{
+		sleep(1);
+		
+		std::cout<<"now will blocks"<<std::endl;
+		operationSemafor(0,-1);
+		std::cout<<"блок семафора писателя"<<std::endl;
+		operationSemafor(1,-1);
+		std::cout<<"блок семафора читателя"<<std::endl;
+		
+		
+		std::ofstream fout(FNAME,std::ios_base::app);
+		fout<<"Писатель PID: "<<getpid()<<" Запись номер "<<i<<std::endl;
+		std::cout<<"Писатель PID: "<<getpid()<<" Запись номер "<<i<<std::endl;
+		fout.close();
+		
+		
+		operationSemafor(0,1);
+		operationSemafor(1,1);
+	}
+	
+	return 0;
+}
+

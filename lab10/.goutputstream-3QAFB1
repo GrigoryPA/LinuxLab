@@ -1,0 +1,28 @@
+#include <iostream>
+#include <sys/sem.h>
+#include <algorithm>
+#include <semaphore.h>
+#define FNAME "TEXT.txt"
+#define KEY 777
+#define WRITE_COUNT 5
+
+
+int SID=-1;
+
+void getSemafor();//запрос на сегмент
+//void* includeSegment();//включение сегмента в пространство процесса
+//void excludeSegment(void*);//исключение 
+//void destructSegment(int);//уничтожение сегмента
+int 
+
+void getSemafor()
+{
+	SID=semget(KEY,2,0666|IPC_CREAT);
+	if(SID<0)
+	{
+		perror("error in function [semget()]");
+		exit(1);
+	}
+}
+
+
