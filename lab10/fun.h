@@ -15,12 +15,9 @@ void destructSemafor();//уничтожение семафора
 
 void getSemafor()
 {
-	
-	std::cout<<"Подготовка к Семафор открыть"<<std::endl;
 	SID=semget(KEY,4,0666);
 	if(SID<0)
 	{
-		std::cout<<"Подготовка к Семафор создать"<<std::endl;
 		SID=semget(KEY,4,0666|IPC_CREAT);
 		if(SID<0)
 		{
@@ -45,7 +42,6 @@ void getSemafor()
 		perror("Error in function semop(add activ proc)");
 		exit(2);
 	}
-	std::cout<<"Семафор используют "<<semctl(SID,3,GETVAL)<<" процессов"<<std::endl;
 }
 
 
